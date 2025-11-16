@@ -1,9 +1,11 @@
-import React, { use } from "react";
+import React, { use, useState } from "react";
 
 const User = ({ userPromise }) => {
-  const user = use(userPromise);
+  const InitialUser = use(userPromise);
+  const [user, setUser] = useState(InitialUser);
   console.log(user);
-
+  // for onSubmit to the form.
+  
   const handleUser = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -23,9 +25,18 @@ const User = ({ userPromise }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log("data after post : ", data);
+        const newUsers = [...user, data];
+        setUser(newUsers);
+        e.target.reset();
       });
   };
 
+
+  // try to delete somethinf after clicking in the X button.
+
+  const handleDelete = () => {
+    
+  }
   return (
     <div>
       <h3>User data are showed here</h3>
@@ -41,6 +52,7 @@ const User = ({ userPromise }) => {
         {user.map((user) => (
           <li key={user.id}>
             {user.name} :{user.email}{" "}
+            <button onClick={handleDelete}>X</button>
           </li>
         ))}
       </div>

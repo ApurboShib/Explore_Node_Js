@@ -222,7 +222,8 @@ app.post('/users', (req, res) => {
     console.log('user post is hited')
     console.log(req.body)
     const newUser = req.body;
-    newUser.id = user.length + 1;
+  newUser.id = user.length + 1;
+  user.push(newUser)
     res.send(newUser)
 
 })
